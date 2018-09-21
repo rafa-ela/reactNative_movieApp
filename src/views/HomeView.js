@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, FlatList, Text, View } from 'react-native';
+import { List, ListItem, SearchBar } from "react-native-elements";
 import getMovie from '../helper/movieAPI';
+import Movie from '../components/Movie';
 
 class HomeScreen extends React.Component {
 
@@ -24,20 +26,41 @@ fetchData = async () => {
   console.log(json);
   this.setState({ movies: json.results });
 };
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>HOME</Text>
-          <FlatList
-          data = {this.state.movies}
-         // keyExtractor={(x, i) => i}
-          renderItem = { ({item})  =>
+
+
+
+renderSeparator = () => {
+  return (
+    <View
+      style={{
+        height: 1,
+        width: "86%",
+        backgroundColor: "#CED0CE",
+        //marginLeft: "10%"
+      }}
+    />
+  );
+};
+
+/**
+ *           renderItem = { ({item})  =>
           <View style={styles.flatview}>
             <Text style={styles.name}>{item.original_title}</Text>
           </View>
           }
+ */
+  render() {
+    return (
+      <View style={{ flex: 1}}>
+        <Text>HOME</Text>
+        <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+          <FlatList
+          data = {this.state.movies}
+          renderItem={({ item }) => <Movie movie={item} />}
+          ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={item => item.id}
       />
+      </List>
       </View>
     );
   }
