@@ -4,12 +4,14 @@ import { Text, Button, Card, Divider } from 'react-native-elements';
 //import moment from 'moment';
 
 export default class Movie extends React.Component {
+
   render() {
     const {
       title,
       overview,
       vote_average,
-      poster_path
+      poster_path,
+      id
     } = this.props.movie;
     const { noteStyle, featuredTitleStyle } = styles;
    // const time = moment(publishedAt || moment.now()).fromNow();
@@ -17,12 +19,8 @@ export default class Movie extends React.Component {
     const defaultImg =
       'https://wallpaper.wiki/wp-content/uploads/2017/04/wallpaper.wiki-Images-HD-Diamond-Pattern-PIC-WPB009691.jpg';
 
+
     return (
-      <TouchableNativeFeedback
-        useForeground
-        //TODO: NEED TO DO THIS
-       //  onPress={() => Linking.openURL("www.google.com")}
-      >
         <Card
           featuredTitle={title}
           featuredTitleStyle={featuredTitleStyle}
@@ -40,10 +38,8 @@ export default class Movie extends React.Component {
             <Text style={noteStyle}> Average vote:  {vote_average} </Text>
             <Text style={noteStyle}> Average vote:  {vote_average} </Text>
             <Text style={noteStyle}> Average vote:  {vote_average} </Text>
-
           </View>
         </Card>
-      </TouchableNativeFeedback>
     );
   }
 }

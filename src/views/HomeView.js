@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, FlatList, Text, View } from 'react-native';
+import { StyleSheet, FlatList, Text, View,TouchableOpacity  } from 'react-native';
 import { List, ListItem, SearchBar } from "react-native-elements";
 import getMovie from '../helper/movieAPI';
 import Movie from '../components/Movie';
@@ -42,13 +42,10 @@ renderSeparator = () => {
   );
 };
 
-/**
- *           renderItem = { ({item})  =>
-          <View style={styles.flatview}>
-            <Text style={styles.name}>{item.original_title}</Text>
-          </View>
-          }
- */
+  clickedOnMovie(id){
+    console.log(id); 
+  }
+
   render() {
     return (
       <View style={{ flex: 1}}>
@@ -56,7 +53,13 @@ renderSeparator = () => {
         <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
           <FlatList
           data = {this.state.movies}
-          renderItem={({ item }) => <Movie movie={item} />}
+          renderItem={
+            ({ item }) =>(
+         <TouchableOpacity   onPress={() => this.clickedOnMovie(item.id)} >
+          <Movie movie={item}/>
+         </TouchableOpacity >
+        )
+          }
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={item => item.id}
       />
