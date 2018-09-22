@@ -3,6 +3,7 @@ import { StyleSheet, FlatList, Text, View,TouchableOpacity  } from 'react-native
 import { List, ListItem, SearchBar } from "react-native-elements";
 import getMovie from '../helper/movieAPI';
 import Movie from '../components/Movie';
+import RenderSeparator from '../components/RenderSeparator';
 
 class HomeScreen extends React.Component {
 
@@ -27,8 +28,6 @@ fetchData = async () => {
   this.setState({ movies: json.results });
 };
 
-
-
 renderSeparator = () => {
   return (
     <View
@@ -36,31 +35,39 @@ renderSeparator = () => {
         height: 1,
         width: "86%",
         backgroundColor: "#CED0CE",
-        //marginLeft: "10%"
       }}
     />
   );
 };
 
-  clickedOnMovie(id){
-    console.log(id); 
-  }
+clickedOnMovie(id,index) {
+    console.log(id);
+    //Make another query to the API that will get the list of actors in the selected movie. 
+    Promise.all([
+        fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=0139806a87c06ca7e1455f8012a66a29'),
+      ])
+      .then(([res1]) => Promise.all([res1.json()]))
+      .then(([data1]) => this.props.navigation.navigate('MovieDetails', {
+        movieInfo: this.state.movies[index],
+        actorList: data1,
+      }));
 
+      //navigate to the movie details page
+   }
   render() {
     return (
       <View style={{ flex: 1}}>
-        <Text>HOME</Text>
         <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
           <FlatList
           data = {this.state.movies}
           renderItem={
-            ({ item }) =>(
-         <TouchableOpacity   onPress={() => this.clickedOnMovie(item.id)} >
+            ({ item, index }) =>(
+         <TouchableOpacity  onPress={() => this.clickedOnMovie(item.id,index)} >
           <Movie movie={item}/>
          </TouchableOpacity >
-        )
+          )
           }
-          ItemSeparatorComponent={this.renderSeparator}
+          ItemSeparatorComponent={RenderSeparator}
           keyExtractor={item => item.id}
       />
       </List>
@@ -68,7 +75,6 @@ renderSeparator = () => {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

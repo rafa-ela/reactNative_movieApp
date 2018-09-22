@@ -12,13 +12,17 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import HomeScreen from './src/views/HomeView';
+import MovieDetailsPage from './src/views/MovieDetailsView';
+
 import TopTwentyScreen from   './src/views/TopTwentyView';
 import MoreOptionsView from   './src/views/MoreView';
 
-/*
+
 const HomeStack = createStackNavigator({
   Home: { screen: HomeScreen },
+  MovieDetails: {screen: MovieDetailsPage}
 });
+/*
 const TopTwentyStack = createStackNavigator({
   Top20: {screen: TopTwentyScreen},
 });
@@ -29,7 +33,7 @@ const MoreOptionStack = createStackNavigator({
 
 export default createBottomTabNavigator(
   {
-    Home: { screen: HomeScreen },
+    Home: { screen: HomeStack },
    Top20: { screen: TopTwentyScreen },
     More : {screen: MoreOptionsView}
   },

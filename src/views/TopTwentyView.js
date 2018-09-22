@@ -1,24 +1,65 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import {View, FlatList,StyleSheet, Text, TouchableWithoutFeedback} from 'react-native';
+import { List,Card } from "react-native-elements";
+import RenderSeparator from '../components/RenderSeparator';
 
-import HomeScreen from './HomeView';
+export default class TopTwentyScreen extends React.Component {
 
-class TopTwentyScreen extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      top20List:[
+        {category :'Highest Grossing Movie'},
+        {category :'Highest Grossing TV Shows'},
+        {category :'Top Actors'},
+        {category :'Worst Movies of All Time'}
+       ]
+      }
+    
+  };
+
+  actionOnRow(item) {
+    console.log('Selected Item :',item);
+ }
   render() {
+    console.log(this.state.top20List);
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Top 20</Text>
-        <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
-        <Button
-          title="Go to More"
-          onPress={() => this.props.navigation.navigate('More')}
-        />
-      </View>
-    );
+      <List containerStyle={styles.container}>
+        <FlatList 
+            data={this.state.top20List}
+            styles ={styles.flatview}
+            renderItem={({item}) => (
+              <Card>
+                <TouchableWithoutFeedback onPress={ () => this.actionOnRow(item)}>
+                    <View>
+                       <Text> {item.category}</Text>
+                    </View>
+               </TouchableWithoutFeedback>
+              </Card>
+                
+           )}
+        /> 
+        </List>
+     );
   }
+
 }
 
-export default TopTwentyScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 50,
+    marginBottom: 25,
+    justifyContent: 'center',
+    backgroundColor: '#F5FCFF',
+    paddingTop: 30,
+    borderRadius: 2,
+  },
+  name: {
+    fontFamily: 'Verdana',
+    fontSize: 18
+  },
+});
+
+
