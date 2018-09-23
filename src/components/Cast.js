@@ -30,6 +30,7 @@ export default class Cast extends React.Component {
   const styles = {
       castTitle: {
         fontWeight: '500',
+        fontSize: 16,
         marginBottom: 3,
       },
       castActor: {

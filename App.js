@@ -1,20 +1,11 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import HomeScreen from './src/views/HomeTab';
 import MovieDetailsPage from './src/pages/MovieDetails';
 import ActorDetailsPage from './src/pages/ActorDetails';
-
+import MovieList from './src/pages/MovieList';
 
 import TopTwentyTab from   './src/views/TopTwentyTab';
 import MoreOptionsView from   './src/views/StackedTab';
@@ -23,8 +14,8 @@ import MoreOptionsView from   './src/views/StackedTab';
 const HomeStack = createStackNavigator({
   Home: { screen: HomeScreen },
   MovieDetails: {screen: MovieDetailsPage},
-  ActorDetails: {screen: ActorDetailsPage}
-
+  ActorDetails: {screen: ActorDetailsPage},
+  MovieListings: {screen: MovieList}
 });
 /*
 const TopTwentyStack = createStackNavigator({

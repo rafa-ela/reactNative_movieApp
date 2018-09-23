@@ -21,8 +21,8 @@ export default class MovieDetailsPage extends React.Component {
         .then(([res1,res2,res3]) => Promise.all([res1.json(),res2.json(),res3.json()]))
         .then(([data1,data2,data3]) => this.props.navigation.navigate('ActorDetails',{
           actorInfo:data1,
-          actorMovies:data2,
-          actorTVShows:data3
+          movies:data2,
+          tvList:data3
         }));
       }    
 
@@ -47,9 +47,8 @@ export default class MovieDetailsPage extends React.Component {
           </View>
         </View>
         <View style={styles.separator} />
-        <Text>
-          {movie.overview}
-        </Text>
+        <Text style = {styles.movieTitle}>Summary:</Text> 
+        <Text>{movie.overview} </Text>
         <View style={styles.separator} />
         <Cast actors={ navigation.getParam('actorList')}
               selectedActor = {this.getSelectedActor}

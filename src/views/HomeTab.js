@@ -38,31 +38,30 @@ clickedOnMovie(id,index) {
       .then(([data1]) => this.props.navigation.navigate('MovieDetails', {
         movieInfo: this.state.movies[index],
         actorList: data1,
-      }));
-
-      //navigate to the movie details page
-   }
+      })).catch(error => {
+        console.log("Getting cart data error",error)});
+      }
   render() {
     return (
       <View style={{ flex: 1}}>
-        <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-          <FlatList
-          data = {this.state.movies}
-          renderItem={
-            ({ item, index }) =>(
-         <TouchableOpacity  onPress={() => this.clickedOnMovie(item.id,index)} >
-          <Movie movie={item}/>
-         </TouchableOpacity >
-          )
-          }
-          ItemSeparatorComponent={RenderSeparator}
-          keyExtractor={item => item.id}
-      />
-      </List>
+            <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+              <FlatList
+              data = {this.state.movies}
+              renderItem={
+                ({ item, index }) =>(
+             <TouchableOpacity  onPress={() => this.clickedOnMovie(item.id,index)} >
+                   <Movie movie={item}/>
+             </TouchableOpacity >
+            )}
+              ItemSeparatorComponent={RenderSeparator}
+              keyExtractor={item => item.id}
+          />
+          </List>
       </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -79,6 +78,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-
 export default HomeScreen;

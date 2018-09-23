@@ -19,7 +19,6 @@ export default class Movie extends React.Component {
     const defaultImg =
       'https://wallpaper.wiki/wp-content/uploads/2017/04/wallpaper.wiki-Images-HD-Diamond-Pattern-PIC-WPB009691.jpg';
 
-
     return (
         <Card
           featuredTitle={title}
@@ -27,7 +26,7 @@ export default class Movie extends React.Component {
           image={{
             uri: urlToImage || defaultImg
           }}
-        >
+          >
           <Text style={{ marginBottom: 10 }}>
             {overview || 'Read More..'}
           </Text>

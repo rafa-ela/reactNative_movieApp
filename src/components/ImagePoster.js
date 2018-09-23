@@ -3,7 +3,6 @@ import React from 'react';
 import {Image } from 'react-native';
 
 export default class ImagePoster extends React.Component {
-
 render(){
     var urlToImage = "http://image.tmdb.org/t/p/w500" + this.props.path;
     const defaultImg =
@@ -16,7 +15,6 @@ render(){
     );
 }
 }
-
 const styles = {
       detailsImage: {
         width: 134,
