@@ -11,6 +11,7 @@ class HomeScreen extends React.Component {
     movies:[],
     isSuccessful: false 
   }
+
 componentDidMount(){
   this.fetchData();
  // getMovie().then(movies => this.setState({ movies,isSuccessful:true}))
@@ -24,24 +25,11 @@ fetchData = async () => {
   var urlReq = BASE_URL +"/3/discover/movie?" + API_KEY+"&primary_release_year=2018&certification_country=US&certification.lte=PG-13&sort_by=vote_count.desc&certification_country=US&certification.lte=PG-13&include_adult=false";
   const response = await fetch(urlReq);
   const json = await response.json();
-  console.log(json);
   this.setState({ movies: json.results });
 };
 
-renderSeparator = () => {
-  return (
-    <View
-      style={{
-        height: 1,
-        width: "86%",
-        backgroundColor: "#CED0CE",
-      }}
-    />
-  );
-};
 
 clickedOnMovie(id,index) {
-    console.log(id);
     //Make another query to the API that will get the list of actors in the selected movie. 
     Promise.all([
         fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=0139806a87c06ca7e1455f8012a66a29'),
@@ -90,19 +78,6 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: 'bold',
   },
-  flatview: {
-    justifyContent: 'center',
-    paddingTop: 30,
-    borderRadius: 2,
-  },
-  name: {
-    fontFamily: 'Verdana',
-    fontSize: 18
-  },
-  email: {
-    color: 'red'
-  }
-  
 });
 
 

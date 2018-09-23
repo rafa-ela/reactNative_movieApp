@@ -3,7 +3,7 @@ import {View, FlatList,StyleSheet, Text, TouchableWithoutFeedback} from 'react-n
 import { List,Card } from "react-native-elements";
 import RenderSeparator from '../components/RenderSeparator';
 
-export default class TopTwentyScreen extends React.Component {
+export default class TopTwentyTab extends React.Component {
 
   constructor(props){
     super(props);

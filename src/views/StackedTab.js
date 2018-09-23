@@ -8,7 +8,6 @@ class MoreOptionsView extends React.Component {
         <Text>More</Text>
         <Button
           title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Home')}
         />
     
       </View>
