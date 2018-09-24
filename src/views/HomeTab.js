@@ -38,6 +38,7 @@ clickedOnMovie(id,index) {
       .then(([data1]) => this.props.navigation.navigate('MovieDetails', {
         movieInfo: this.state.movies[index],
         actorList: data1,
+        mediaType: 'film'
       })).catch(error => {
         console.log("Getting Blah error",error)});
       }
@@ -55,7 +56,6 @@ clickedOnMovie(id,index) {
                   />
              </TouchableOpacity >
             )}
-              ItemSeparatorComponent={RenderSeparator}
               keyExtractor={(item,index) => index.toString()}
           />
           </List>

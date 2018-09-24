@@ -29,21 +29,26 @@ export default class MovieDetailsPage extends React.Component {
   render() {
     const { navigation } = this.props;
     const movie = navigation.getParam('movieInfo');
+    const type = navigation.getParam('mediaType');
     const {noteStyle} = styles;
+    console.log(movie);
     //const time = moment(publishedAt || moment.now()).fromNow();        
     return (
         <ScrollView contentContainerStyle={styles.contentContainer}>
     <View style={styles.mainSection}>
           <ImagePoster path = {movie.poster_path} />
           <View style={styles.rightPane}> 
-            <Text style={styles.movieTitle}>Original Title: {movie.original_title}</Text>
+            <Text style={styles.movieTitle}>Original Title: {type === 'movie'? movie.original_title: movie.original_name}</Text>
             <View style={styles.mpaaWrapper}>
               <Text style={styles.mpaaText}>
                 NR
               </Text>
             </View>
             <Text style={noteStyle}> Average vote: {movie.vote_average} </Text>
-            <Text>Release Date: {movie.release_date}</Text>
+            {
+              type === 'movie' ? <Text>Release Date: {movie.release_date}</Text> :
+              <Text>First air Date: {movie.first_air_date}</Text>
+            }
           </View>
         </View>
         <View style={styles.separator} />

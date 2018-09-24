@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, FlatList,StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { List,Card } from "react-native-elements";
+import Movie from '../components/Movie';
 
 export default class ItemList extends React.Component {
 
@@ -11,21 +12,20 @@ export default class ItemList extends React.Component {
      
   render() {
   return (
-    <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+
     <FlatList 
         data={this.props.items}
         renderItem={({item,index}) => (
           <Card>
         <TouchableOpacity onPress={ () => this.actionOnRow(item.id,item.media_type,index)}>
-                <View>
-                   <Text> {item.title} : {item.id} </Text>
-                </View>
+                 <Movie movie={item}
+                          type={item.media_type} 
+                  />
            </TouchableOpacity>
           </Card>
        )}
        keyExtractor={(item,index) => index.toString()}
        /> 
-     </List>
   );
   }
 }

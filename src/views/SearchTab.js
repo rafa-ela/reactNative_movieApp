@@ -35,21 +35,22 @@ this.itemClicked = this.itemClicked.bind(this);
               responses: data.results,
               finishedSearching: true,
               hasResults: count > 1 ? true: false,
-              message: count > 1? "Search results for " + queryString : "No results found for: " + queryString
+              message: count > 1? "Displaying results for " + queryString : "No results found for: " + queryString
           });
       }).catch(error => {
         console.log("Getting cart data error",error)});
     }
 
     itemClicked(id,mediaType,index){
-        console.log(id);
+        console.log(mediaType);
         Promise.all([
-            fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=0139806a87c06ca7e1455f8012a66a29'),
+            fetch('https://api.themoviedb.org/3/'+mediaType+'/' + id + '/credits?api_key=0139806a87c06ca7e1455f8012a66a29'),
           ])
           .then(([res1]) => Promise.all([res1.json()]))
           .then(([data1]) => this.props.navigation.navigate('MovieDetails', {
             movieInfo: this.state.responses[index],
             actorList: data1,
+            mediaType: mediaType
           })).catch(error => {
             console.log("Getting cart data error",error)});
   
@@ -57,9 +58,8 @@ this.itemClicked = this.itemClicked.bind(this);
 
   render() {
     return (
-      <View>
-     <View style={styles.separator} />
-     <SearchBar
+    <View style={{ flex: 1}}>
+        <SearchBar
         style = {styles.searchBar}
         platform="android"
         cancelIcon={{ type: 'font-awesome', name: 'chevron-left' }}
@@ -67,12 +67,12 @@ this.itemClicked = this.itemClicked.bind(this);
         onSubmitEditing={(event) => this.searchMovie(event.nativeEvent.text)}
         />
         <Text  style={styles.h2text} > {this.state.message} </Text>
-        { this.state.hasResults  ?
-          <ItemList items = {this.state.responses}
-                    itemClickedCallBack = {this.itemClicked}
-          />:<Text> </Text>
-      }
-    </View>
+         {this.state.hasResults  ?
+            <ItemList items = {this.state.responses}
+            itemClickedCallBack = {this.itemClicked}/>
+            : <Text> </Text>
+         }
+      </View>
     );
   }
 }

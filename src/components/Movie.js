@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Linking, TouchableNativeFeedback } from 'react-native';
-import { Text, Button, Card, Divider } from 'react-native-elements';
+import { Text, StyleSheet, Card, Divider } from 'react-native-elements';
 //import moment from 'moment';
 
 export default class Movie extends React.Component {
@@ -22,13 +22,16 @@ export default class Movie extends React.Component {
 
     return (
         <Card
-          featuredTitle={title}
+          featuredTitle={this.props.type === 'movie' ? title: this.props.movie.original_name}
           featuredTitleStyle={featuredTitleStyle}
           image={{
             uri: urlToImage || defaultImg
           }}
           >
-          <Text style={{ marginBottom: 10 }}>
+          <Text style = {{fontSize: 13, fontWeight: 'bold'}}>
+            Summary:
+          </Text>
+          <Text style={{ marginBottom: 10 }} numberOfLines = { 2 } >
             {overview || 'Read More..'}
           </Text>
           <Divider style={{ backgroundColor: '#dfe6e9' }} />
@@ -36,8 +39,7 @@ export default class Movie extends React.Component {
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
             <Text style={noteStyle}> Average vote:  {vote_average} </Text>
-            <Text style={noteStyle}> Average vote:  {vote_average} </Text>
-            <Text style={noteStyle}> Average vote:  {vote_average} </Text>
+            <Text style={noteStyle}> Media type :  {this.props.type} </Text>
           </View>
         </Card>
     );
