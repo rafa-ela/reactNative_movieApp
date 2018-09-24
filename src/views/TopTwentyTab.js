@@ -1,7 +1,6 @@
 import React from 'react';
-import {View, FlatList,StyleSheet, Text, TouchableWithoutFeedback} from 'react-native';
+import {View, FlatList,StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { List,Card } from "react-native-elements";
-import RenderSeparator from '../components/RenderSeparator';
 
 export default class TopTwentyTab extends React.Component {
 
@@ -9,18 +8,33 @@ export default class TopTwentyTab extends React.Component {
     super(props);
     this.state = {
       top20List:[
-        {category :'Highest Grossing Movie'},
-        {category :'Highest Grossing TV Shows'},
-        {category :'Top Actors'},
-        {category :'Worst Movies of All Time'}
+        {category :'Highest Grossing Movie', id:'GrossingMovie'},
+        {category :'Highest Grossing TV Shows', id:'GrossingTV'},
+        {category :'Top Actors' ,id:'Actors'},
+        {category :'Worst Movies of All Time',id:'WorstMovies'}
        ]
       }
     
   };
 
   actionOnRow(item) {
-    console.log('Selected Item :',item);
+    if(item === 'GrossingMovie'){
+        this.getTopGrossingMovie();
+    }
  }
+
+ getTopGrossingMovie() {
+  Promise.all([
+    fetch('https://api.themoviedb.org/3/discover/movie?api_key=0139806a87c06ca7e1455f8012a66a29&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1&primary_release_year=1990'),
+  ])
+  .then(([res1]) => Promise.all([res1.json()]))
+  .then(([data1]) => this.props.navigation.navigate('MovieListings', {
+    movies: data1.results,
+    title: "Top Grossing Movies"
+  })).catch(error => {
+    console.log("Getting cart data error",error)});
+}
+
   render() {
     console.log(this.state.top20List);
     return (
@@ -30,11 +44,11 @@ export default class TopTwentyTab extends React.Component {
             styles ={styles.flatview}
             renderItem={({item}) => (
               <Card>
-                <TouchableWithoutFeedback onPress={ () => this.actionOnRow(item)}>
+                <TouchableOpacity onPress={ () => this.actionOnRow(item.id)}>
                     <View>
                        <Text> {item.category}</Text>
                     </View>
-               </TouchableWithoutFeedback>
+               </TouchableOpacity>
               </Card>
                 
            )}
@@ -59,7 +73,9 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: 'Verdana',
     fontSize: 18
-  },
+  }
+
+  
 });
 
 

@@ -50,7 +50,9 @@ clickedOnMovie(id,index) {
               renderItem={
                 ({ item, index }) =>(
              <TouchableOpacity  onPress={() => this.clickedOnMovie(item.id,index)} >
-                   <Movie movie={item}/>
+                   <Movie movie={item}
+                          type={"movie"}
+                  />
              </TouchableOpacity >
             )}
               ItemSeparatorComponent={RenderSeparator}

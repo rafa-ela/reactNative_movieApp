@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator,DrawerNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import HomeScreen from './src/views/HomeTab';
@@ -9,7 +9,7 @@ import MovieList from './src/pages/MovieList';
 
 import TopTwentyTab from   './src/views/TopTwentyTab';
 import MoreOptionsView from   './src/views/StackedTab';
-
+import SearchTab from './src/views/SearchTab';
 
 const HomeStack = createStackNavigator({
   Home: { screen: HomeScreen },
@@ -17,20 +17,26 @@ const HomeStack = createStackNavigator({
   ActorDetails: {screen: ActorDetailsPage},
   MovieListings: {screen: MovieList}
 });
-/*
 const TopTwentyStack = createStackNavigator({
   Top20: {screen: TopTwentyTab},
+  MovieListings: {screen: MovieList},
+  ActorDetails: {screen: ActorDetailsPage},
+  MovieDetails: {screen: MovieDetailsPage},
 });
-const MoreOptionStack = createStackNavigator({
-  MoreOptions: {screen: MoreOptionsView}
+
+const MoreOptionsStack = createStackNavigator({
+  More: {screen: MoreOptionsView},
+  Top20: {screen: TopTwentyTab},
+  MovieListings: {screen: MovieList},
+  ActorDetails: {screen: ActorDetailsPage},
+  MovieDetails: {screen: MovieDetailsPage},
 });
-*/
 
 export default createBottomTabNavigator(
   {
     Home: { screen: HomeStack },
-    Top20: { screen: TopTwentyTab },
-    More : {screen: MoreOptionsView}
+    Search: {screen:SearchTab},
+    More : {screen: MoreOptionsStack}
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -39,8 +45,8 @@ export default createBottomTabNavigator(
         let iconName;
         if (routeName === 'Home') {
           iconName = 'home';
-        } else if (routeName === 'Top20') {
-          iconName = 'trophy';
+        } else if (routeName === 'Search') {
+          iconName = 'search';
         }
         else if (routeName == 'More')
         {

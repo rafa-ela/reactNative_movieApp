@@ -13,6 +13,7 @@ export default class Movie extends React.Component {
       poster_path,
       id
     } = this.props.movie;
+    console.log(this.props.type);
     const { noteStyle, featuredTitleStyle } = styles;
    // const time = moment(publishedAt || moment.now()).fromNow();
    var urlToImage = "http://image.tmdb.org/t/p/w500"+ poster_path;

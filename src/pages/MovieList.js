@@ -6,8 +6,7 @@ import RenderSeparator from '../components/RenderSeparator';
 
 export default class MovieList extends React.Component {
 
-    clickedOnMovie(id, index,movieList){
-      console.log(movieList[index]);
+    clickedOnMovie(id, index, movieList){
       Promise.all([
         fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=0139806a87c06ca7e1455f8012a66a29'),
       ])
@@ -22,15 +21,16 @@ export default class MovieList extends React.Component {
     render() {
       const { navigation } = this.props;
       const movies = navigation.getParam('movies');
-      console.log(movies);
+      const headerTitle = navigation.getParam('title');
       return (
           <View style={{ flex: 1}}>
+          <Text style={styles.h2text}> {headerTitle} </Text>
             <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
               <FlatList
-              data = {movies.cast}
+              data = {movies}
               renderItem={
                 ({ item, index }) =>(
-             <TouchableOpacity  onPress={() => this.clickedOnMovie(item.id,index,movies.cast)} >
+             <TouchableOpacity  onPress={() => this.clickedOnMovie(item.id,index,movies)} >
                    <Movie movie={item}/>
              </TouchableOpacity >
             )}

@@ -10,10 +10,11 @@ export default class ActorDetailsPage extends React.Component {
         title: "Actor Details"
       }
   
-    actorMovies(actorMovies){
+    actorMovies(actorMovies,name){
         this.props.navigation.navigate('MovieListings', {
-            movies: actorMovies
-        });
+            movies: actorMovies.cast,
+            title: "Showing Movies " 
+     });
     
     }
     render(){
@@ -40,7 +41,7 @@ export default class ActorDetailsPage extends React.Component {
             <Text> {actor.biography} </Text>
         <View style={{padding: 15}} />
         <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity style = {styles.text}  onPress={() => this.actorMovies(movies) } >
+            <TouchableOpacity style = {styles.text}  onPress={() => this.actorMovies(movies,actor.name) } >
                     <Text style ={{padding:5 }}> Movies </Text>
             </TouchableOpacity>
             <View style={{padding: 10}} />
