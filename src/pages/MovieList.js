@@ -35,7 +35,7 @@ export default class MovieList extends React.Component {
              </TouchableOpacity >
             )}
               ItemSeparatorComponent={RenderSeparator}
-              keyExtractor={item => item.id}
+              keyExtractor={(item,index) => index.toString()}
           />
           </List>
           </View>

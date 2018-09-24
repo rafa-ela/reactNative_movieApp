@@ -17,11 +17,11 @@ const HomeStack = createStackNavigator({
   ActorDetails: {screen: ActorDetailsPage},
   MovieListings: {screen: MovieList}
 });
-const TopTwentyStack = createStackNavigator({
-  Top20: {screen: TopTwentyTab},
-  MovieListings: {screen: MovieList},
-  ActorDetails: {screen: ActorDetailsPage},
+const SearchTabStack = createStackNavigator({
+  Search: {screen: SearchTab},
   MovieDetails: {screen: MovieDetailsPage},
+  ActorDetails: {screen: ActorDetailsPage},
+  MovieListings: {screen: MovieList}
 });
 
 const MoreOptionsStack = createStackNavigator({
@@ -29,13 +29,12 @@ const MoreOptionsStack = createStackNavigator({
   Top20: {screen: TopTwentyTab},
   MovieListings: {screen: MovieList},
   ActorDetails: {screen: ActorDetailsPage},
-  MovieDetails: {screen: MovieDetailsPage},
 });
 
 export default createBottomTabNavigator(
   {
     Home: { screen: HomeStack },
-    Search: {screen:SearchTab},
+    Search: {screen:SearchTabStack},
     More : {screen: MoreOptionsStack}
   },
   {

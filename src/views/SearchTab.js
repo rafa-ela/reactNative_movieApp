@@ -13,15 +13,17 @@ export default class SearchTab extends React.Component {
    
     constructor(props){
     super(props);
+
     this.state = {
     hasResults: false ,
     finishedSearching:false,
-    message: " ",
+    message: " Search results will be shown here",
     responses:[]
 };
+this.itemClicked = this.itemClicked.bind(this);
+
 }
     searchMovie(event) {
-    
     var queryString = event.split(' ').join('+');
     Promise.all([
         fetch("https://api.themoviedb.org/3/search/multi?api_key=0139806a87c06ca7e1455f8012a66a29&language=en-US&query="+queryString+"&page=1&include_adult=false")
@@ -39,6 +41,20 @@ export default class SearchTab extends React.Component {
         console.log("Getting cart data error",error)});
     }
 
+    itemClicked(id,mediaType,index){
+        console.log(id);
+        Promise.all([
+            fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=0139806a87c06ca7e1455f8012a66a29'),
+          ])
+          .then(([res1]) => Promise.all([res1.json()]))
+          .then(([data1]) => this.props.navigation.navigate('MovieDetails', {
+            movieInfo: this.state.responses[index],
+            actorList: data1,
+          })).catch(error => {
+            console.log("Getting cart data error",error)});
+  
+    }
+
   render() {
     return (
       <View>
@@ -52,8 +68,9 @@ export default class SearchTab extends React.Component {
         />
         <Text  style={styles.h2text} > {this.state.message} </Text>
         { this.state.hasResults  ?
-          <ItemList items = {this.state.responses}/> :
-          <Text> </Text>
+          <ItemList items = {this.state.responses}
+                    itemClickedCallBack = {this.itemClicked}
+          />:<Text> </Text>
       }
     </View>
     );

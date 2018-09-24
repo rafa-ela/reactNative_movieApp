@@ -39,7 +39,7 @@ clickedOnMovie(id,index) {
         movieInfo: this.state.movies[index],
         actorList: data1,
       })).catch(error => {
-        console.log("Getting cart data error",error)});
+        console.log("Getting Blah error",error)});
       }
   render() {
     return (
@@ -56,7 +56,7 @@ clickedOnMovie(id,index) {
              </TouchableOpacity >
             )}
               ItemSeparatorComponent={RenderSeparator}
-              keyExtractor={item => item.id}
+              keyExtractor={(item,index) => index.toString()}
           />
           </List>
       </View>

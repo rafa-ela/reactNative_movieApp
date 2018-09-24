@@ -4,10 +4,9 @@ import { List,Card } from "react-native-elements";
 
 export default class ItemList extends React.Component {
 
+  actionOnRow(item,media_type,index) {
   
-  
-  actionOnRow(item) {
-    console.log("Id in action row");
+    this.props.itemClickedCallBack(item,media_type,index);
   }       
      
   render() {
@@ -15,16 +14,17 @@ export default class ItemList extends React.Component {
     <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
     <FlatList 
         data={this.props.items}
-        renderItem={({item}) => (
+        renderItem={({item,index}) => (
           <Card>
-            <TouchableOpacity >
+        <TouchableOpacity onPress={ () => this.actionOnRow(item.id,item.media_type,index)}>
                 <View>
-                   <Text> {item.title} </Text>
+                   <Text> {item.title} : {item.id} </Text>
                 </View>
            </TouchableOpacity>
           </Card>
        )}
-     /> 
+       keyExtractor={(item,index) => index.toString()}
+       /> 
      </List>
   );
   }
