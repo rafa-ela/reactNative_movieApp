@@ -6,10 +6,8 @@ import Movie from '../components/Movie';
 export default class ItemList extends React.Component {
 
   actionOnRow(item,media_type,index) {
-  
     this.props.itemClickedCallBack(item,media_type,index);
   }       
-     
   render() {
   return (
 
@@ -19,7 +17,7 @@ export default class ItemList extends React.Component {
           <Card>
         <TouchableOpacity onPress={ () => this.actionOnRow(item.id,item.media_type,index)}>
                  <Movie movie={item}
-                          type={item.media_type} 
+                        type={item.media_type==='movie'?'film':'tvshows'} 
                   />
            </TouchableOpacity>
           </Card>

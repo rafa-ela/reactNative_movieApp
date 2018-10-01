@@ -2,28 +2,28 @@ import React from 'react';
 import { 
     StyleSheet,
     View,
-    Text,
-    FlatList,
-    TouchableOpacity
+    Text
 } from 'react-native' ;
 import { SearchBar, List, Card }  from 'react-native-elements';
 import ItemList from '../components/ItemList';
 
 export default class SearchTab extends React.Component {
-   
+    static navigationOptions = {
+        title: "Search "
+      }
+    
     constructor(props){
     super(props);
-
     this.state = {
     hasResults: false ,
     finishedSearching:false,
     message: " Search results will be shown here",
     responses:[]
-};
-this.itemClicked = this.itemClicked.bind(this);
+    };
+    this.itemClicked = this.itemClicked.bind(this);
 
 }
-    searchMovie(event) {
+searchMovie(event) {
     var queryString = event.split(' ').join('+');
     Promise.all([
         fetch("https://api.themoviedb.org/3/search/multi?api_key=0139806a87c06ca7e1455f8012a66a29&language=en-US&query="+queryString+"&page=1&include_adult=false")
@@ -38,22 +38,20 @@ this.itemClicked = this.itemClicked.bind(this);
               message: count > 1? "Displaying results for " + queryString : "No results found for: " + queryString
           });
       }).catch(error => {
-        console.log("Getting cart data error",error)});
+        console.log("ERROR: In Search Movie",error)});
     }
 
-    itemClicked(id,mediaType,index){
-        console.log(mediaType);
+itemClicked(id,type,index){
         Promise.all([
-            fetch('https://api.themoviedb.org/3/'+mediaType+'/' + id + '/credits?api_key=0139806a87c06ca7e1455f8012a66a29'),
+            fetch('https://api.themoviedb.org/3/'+type+'/' + id + '/credits?api_key=0139806a87c06ca7e1455f8012a66a29'),
           ])
           .then(([res1]) => Promise.all([res1.json()]))
-          .then(([data1]) => this.props.navigation.navigate('MovieDetails', {
+          .then(([data1]) => this.props.navigation.push('MovieDetails', {
             movieInfo: this.state.responses[index],
             actorList: data1,
-            mediaType: mediaType
+            mediaType: type ==='movie' ? 'film': 'tvshows'
           })).catch(error => {
-            console.log("Getting cart data error",error)});
-  
+            console.log("ERROR: Item click in search",error)});
     }
 
   render() {

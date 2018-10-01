@@ -4,8 +4,13 @@ import { List, ListItem, SearchBar } from "react-native-elements";
 import getMovie from '../helper/movieAPI';
 import Movie from '../components/Movie';
 import RenderSeparator from '../components/RenderSeparator';
+import movieAPI from '../helper/movieAPI';
 
 class HomeScreen extends React.Component {
+    
+  static navigationOptions = {
+    title: "Home Page"
+  }
 
   state = {
     movies:[],
@@ -20,22 +25,20 @@ componentDidMount(){
 
 
 fetchData = async () => {
-  const API_KEY= "api_key=0139806a87c06ca7e1455f8012a66a29";
-  const BASE_URL = "http://api.themoviedb.org";
-  var urlReq = BASE_URL +"/3/discover/movie?" + API_KEY+"&primary_release_year=2018&certification_country=US&certification.lte=PG-13&sort_by=vote_count.desc&certification_country=US&certification.lte=PG-13&include_adult=false";
+  var urlReq = movieAPI.getPopuMovies();
   const response = await fetch(urlReq);
   const json = await response.json();
   this.setState({ movies: json.results });
 };
 
-
 clickedOnMovie(id,index) {
     //Make another query to the API that will get the list of actors in the selected movie. 
+    actorList = movieAPI.getActorListURL(id);
     Promise.all([
-        fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=0139806a87c06ca7e1455f8012a66a29'),
+      fetch(actorList),
       ])
       .then(([res1]) => Promise.all([res1.json()]))
-      .then(([data1]) => this.props.navigation.navigate('MovieDetails', {
+      .then(([data1]) => this.props.navigation.push('MovieDetails', {
         movieInfo: this.state.movies[index],
         actorList: data1,
         mediaType: 'film'
@@ -45,6 +48,7 @@ clickedOnMovie(id,index) {
   render() {
     return (
       <View style={{ flex: 1}}>
+            <Text style={styles.h2text}> {"Popular Movies"} </Text>
             <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
               <FlatList
               data = {this.state.movies}
@@ -52,7 +56,7 @@ clickedOnMovie(id,index) {
                 ({ item, index }) =>(
              <TouchableOpacity  onPress={() => this.clickedOnMovie(item.id,index)} >
                    <Movie movie={item}
-                          type={"movie"}
+                          type={"film"}
                   />
              </TouchableOpacity >
             )}
@@ -76,8 +80,13 @@ const styles = StyleSheet.create({
   h2text: {
     marginTop: 10,
     fontFamily: 'Helvetica',
-    fontSize: 36,
+    fontSize: 30,
     fontWeight: 'bold',
   },
+  separator: {
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    height: StyleSheet.hairlineWidth,
+    marginVertical: 10,
+  }
 });
 export default HomeScreen;

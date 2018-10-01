@@ -6,21 +6,32 @@ import ImagePoster from '../components/ImagePoster'
 
 export default class ActorDetailsPage extends React.Component {
     
-    static navigationOptions = {
+static navigationOptions = {
         title: "Actor Details"
       }
   
-    actorMovies(actorMovies,name){
-        this.props.navigation.navigate('MovieListings', {
+actorMovies(actorMovies,name,type){
+    if (type === 'film'){
+        this.props.navigation.push('MovieListings', {
             movies: actorMovies.cast,
-            title: "Showing Movies " 
-     });
-    
+            title: "Showing Movies " ,
+            type:"film"
+         });
     }
-    render(){
+    else{
+        this.props.navigation.push('MovieListings', {
+            movies: actorMovies.cast,
+            title: "Showing TV Shows " ,
+            type:"tvshows"
+         });
+    }
+}
+render(){
     const { navigation } = this.props;
     const actor = navigation.getParam('actorInfo');
     const movies = navigation.getParam('movies');
+    const tvshows = navigation.getParam('tvList');
+
     return(
      <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.mainSection}>
@@ -41,12 +52,12 @@ export default class ActorDetailsPage extends React.Component {
             <Text> {actor.biography} </Text>
         <View style={{padding: 15}} />
         <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity style = {styles.text}  onPress={() => this.actorMovies(movies,actor.name) } >
-                    <Text style ={{padding:5 }}> Movies </Text>
+            <TouchableOpacity style = {styles.buttonBox}  onPress={() => this.actorMovies(movies,actor.name,"film") } >
+                    <Text style ={styles.buttonText}> Movies </Text>
             </TouchableOpacity>
             <View style={{padding: 10}} />
-            <TouchableOpacity style = {styles.text}>
-                <Text style ={{padding:5 }}> TV Shows </Text>
+            <TouchableOpacity style = {styles.buttonBox}  onPress={() => this.actorMovies(tvshows,actor.name,"tv") } >
+                <Text style ={styles.buttonText}> TV Shows </Text>
             </TouchableOpacity>
        </View>
   </ScrollView>
@@ -55,9 +66,9 @@ export default class ActorDetailsPage extends React.Component {
 }
 
 const styles = {
-    text: {
+    buttonBox: {
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: '#00008b',
         backgroundColor: '#eeeeee',
         width: 85,
         height: 40
@@ -67,6 +78,10 @@ const styles = {
       },
       rightPane: {
         flex: 1,
+      },
+      buttonText:{
+        padding:5,
+        color: 'blue' ,
       },
       separator: {
         backgroundColor: 'rgba(0, 0, 0, 0.1)',

@@ -10,8 +10,7 @@ export default class MoreOptionsView extends React.Component {
     this.state = {
       top20List:[
         {category : 'Top 20', id:'top20'},
-        {category :'Genres', id:'genres'},
-        {category :'Popular TV Shows' ,id:'tv shows'},
+        {category :'Genres', id:'genres'}
        ]
       }
     
@@ -19,21 +18,9 @@ export default class MoreOptionsView extends React.Component {
 
   actionOnRow(item) {
     if(item === 'top20'){
-      this.props.navigation.navigate('Top20');
+      this.props.navigation.push('Top20');
     }
  }
-
- getTopGrossingMovie() {
-  Promise.all([
-    fetch('https://api.themoviedb.org/3/discover/movie?api_key=0139806a87c06ca7e1455f8012a66a29&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1&primary_release_year=1990'),
-  ])
-  .then(([res1]) => Promise.all([res1.json()]))
-  .then(([data1]) => this.props.navigation.navigate('MovieListings', {
-    movies: data1.results,
-    title: "Top Grossing Movies"
-  })).catch(error => {
-    console.log("Getting cart data error",error)});
-}
 
   render() {
     console.log(this.state.top20List);
@@ -51,6 +38,7 @@ export default class MoreOptionsView extends React.Component {
                </TouchableOpacity>
               </Card>   
            )}
+           keyExtractor={(item,index) => index.toString()}
         /> 
         </List>
      );

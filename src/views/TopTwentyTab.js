@@ -1,42 +1,77 @@
 import React from 'react';
 import {View, FlatList,StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { List,Card } from "react-native-elements";
+import movieAPI from '../helper/movieAPI';
 
 export default class TopTwentyTab extends React.Component {
+
+  static navigationOptions = {
+    title: "Top Categories"
+  }
 
   constructor(props){
     super(props);
     this.state = {
       top20List:[
-        {category :'Highest Grossing Movie', id:'GrossingMovie'},
-        {category :'Highest Grossing TV Shows', id:'GrossingTV'},
-        {category :'Top Actors' ,id:'Actors'},
-        {category :'Worst Movies of All Time',id:'WorstMovies'}
+        {category :'Highest Grossing Movie', id:'HighGrossingMovie'},
+        {category :'Lowest Grossing Movie', id:'LowestGrossingMovie'},
+        {category :'Worst Movies of All Time',id:'WorstMovies'},
+        {category :'Best Movies of All Time',id:'BestMovies'},
+        {category :'Top Rated TV Shows',id:'BestTVShows'},
        ]
       }
     
   };
 
-  actionOnRow(item) {
-    if(item === 'GrossingMovie'){
-        this.getTopGrossingMovie();
+  pressedTop20Item(id) {
+    var url =  movieAPI.getTopHighestGrossingURL(),type="film",title="Top";
+    switch(id){
+      case "HighGrossingMovie":
+      url = movieAPI.getTopHighestGrossingURL();
+      type = "film";
+      title ="Top Grossing Movies";
+      break;
+      case "LowestGrossingMovie":
+      url = movieAPI.getTopLowestGrossingURL();
+      type = "film";
+      title ="Lowest Grossing Movies";
+      break;
+      case "WorstMovies":
+      url = movieAPI.getTopWorstMovieURL();
+      type = "film";
+      title ="Worst Movies";
+      break;
+      case "BestMovies":
+      url = movieAPI.getTopBestMovieURL();
+      type = "film";
+      title ="Best Movies";
+      break;
+      case "BestTVShows":
+      url = movieAPI.getTopTVShowsURL();
+      type = "tvshows";
+      title ="Top Rated TVShows";
+      break;
+      default:
+      url = movieAPI.getTopBestMovieURL();
+      break;
     }
+    this.goToListingsPage(url,type,title);
  }
 
- getTopGrossingMovie() {
+ goToListingsPage(url,mediaType,HeaderTitle) {
   Promise.all([
-    fetch('https://api.themoviedb.org/3/discover/movie?api_key=0139806a87c06ca7e1455f8012a66a29&language=en-US&sort_by=revenue.desc&include_adult=false&include_video=false&page=1&primary_release_year=1990'),
+    fetch(url),
   ])
   .then(([res1]) => Promise.all([res1.json()]))
-  .then(([data1]) => this.props.navigation.navigate('MovieListings', {
+  .then(([data1]) => this.props.navigation.push('MovieListings', {
     movies: data1.results,
-    title: "Top Grossing Movies"
-  })).catch(error => {
+    title: HeaderTitle,
+    type: mediaType
+    })).catch(error => {
     console.log("Getting cart data error",error)});
 }
 
   render() {
-    console.log(this.state.top20List);
     return (
       <List containerStyle={styles.container}>
         <FlatList 
@@ -44,13 +79,12 @@ export default class TopTwentyTab extends React.Component {
             styles ={styles.flatview}
             renderItem={({item}) => (
               <Card>
-                <TouchableOpacity onPress={ () => this.actionOnRow(item.id)}>
+                <TouchableOpacity onPress={ () => this.pressedTop20Item(item.id)}>
                     <View>
                        <Text> {item.category}</Text>
                     </View>
                </TouchableOpacity>
-              </Card>
-                
+              </Card>      
            )}
         /> 
         </List>

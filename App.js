@@ -25,9 +25,9 @@ const SearchTabStack = createStackNavigator({
 });
 
 const MoreOptionsStack = createStackNavigator({
-  More: {screen: MoreOptionsView},
   Top20: {screen: TopTwentyTab},
   MovieListings: {screen: MovieList},
+  MovieDetails: {screen: MovieDetailsPage},
   ActorDetails: {screen: ActorDetailsPage},
 });
 

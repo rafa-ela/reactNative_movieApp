@@ -11,9 +11,9 @@ export default class Movie extends React.Component {
       overview,
       vote_average,
       poster_path,
+      popularity,
       id
     } = this.props.movie;
-    console.log(this.props.type);
     const { noteStyle, featuredTitleStyle } = styles;
    // const time = moment(publishedAt || moment.now()).fromNow();
    var urlToImage = "http://image.tmdb.org/t/p/w500"+ poster_path;
@@ -22,7 +22,7 @@ export default class Movie extends React.Component {
 
     return (
         <Card
-          featuredTitle={this.props.type === 'movie' ? title: this.props.movie.original_name}
+          featuredTitle={this.props.type === 'film' ? title: this.props.movie.original_name}
           featuredTitleStyle={featuredTitleStyle}
           image={{
             uri: urlToImage || defaultImg
@@ -38,7 +38,8 @@ export default class Movie extends React.Component {
           <View
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}
           >
-            <Text style={noteStyle}> Average vote:  {vote_average} </Text>
+            <Text style={noteStyle}> Average vote: {vote_average} </Text>
+            <Text style={noteStyle}> Popularity :  {popularity} </Text>
             <Text style={noteStyle}> Media type :  {this.props.type} </Text>
           </View>
         </Card>
