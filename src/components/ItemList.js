@@ -14,11 +14,12 @@ export default class ItemList extends React.Component {
     <FlatList 
         data={this.props.items}
         renderItem={({item,index}) => (
-          <Card>
+          <Card >
         <TouchableOpacity onPress={ () => this.actionOnRow(item.id,item.media_type,index)}>
+
                  <Movie movie={item}
                         type={item.media_type==='movie'?'film':'tvshows'} 
-                  />
+          />
            </TouchableOpacity>
           </Card>
        )}

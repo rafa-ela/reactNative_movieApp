@@ -51,8 +51,9 @@ const styles = {
   noteStyle: {
     margin: 5,
     fontStyle: 'italic',
-    color: '#b2bec3',
-    fontSize: 10
+    color: '#B0BBBF',
+    fontSize: 10,
+    fontWeight:'bold'
   },
   featuredTitleStyle: {
     marginHorizontal: 5,

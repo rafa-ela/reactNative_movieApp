@@ -6,9 +6,17 @@ import movieAPI from '../helper/movieAPI';
 export default class TopTwentyTab extends React.Component {
 
   static navigationOptions = {
-    title: "Top Categories"
-  }
-
+    title: 'TOP CATEGORIES',
+    headerStyle: {
+      backgroundColor: '#173e69',
+    },
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      color: '#ffffff',
+      fontSize: 25,
+      flex:1,
+        },
+  };
   constructor(props){
     super(props);
     this.state = {
@@ -29,7 +37,7 @@ export default class TopTwentyTab extends React.Component {
       case "HighGrossingMovie":
       url = movieAPI.getTopHighestGrossingURL();
       type = "film";
-      title ="Top Grossing Movies";
+      title ="Highest Grossing Movies";
       break;
       case "LowestGrossingMovie":
       url = movieAPI.getTopLowestGrossingURL();
@@ -49,7 +57,7 @@ export default class TopTwentyTab extends React.Component {
       case "BestTVShows":
       url = movieAPI.getTopTVShowsURL();
       type = "tvshows";
-      title ="Top Rated TVShows";
+      title ="Top Rated TV Shows";
       break;
       default:
       url = movieAPI.getTopBestMovieURL();
@@ -73,6 +81,7 @@ export default class TopTwentyTab extends React.Component {
 
   render() {
     return (
+      <View style={{ flex: 1, backgroundColor: '#CCE5FF'}}>
       <List containerStyle={styles.container}>
         <FlatList 
             data={this.state.top20List}
@@ -81,13 +90,16 @@ export default class TopTwentyTab extends React.Component {
               <Card>
                 <TouchableOpacity onPress={ () => this.pressedTop20Item(item.id)}>
                     <View>
-                       <Text> {item.category}</Text>
+                       <Text style= {styles.name}> {item.category}</Text>
                     </View>
                </TouchableOpacity>
               </Card>      
            )}
+           keyExtractor={(item,index) => index.toString()}
         /> 
         </List>
+      </View>
+
      );
   }
 
@@ -98,15 +110,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 50,
-    marginBottom: 25,
+    marginBottom: 50,
     justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#999fb0',
     paddingTop: 30,
     borderRadius: 2,
   },
   name: {
     fontFamily: 'Verdana',
-    fontSize: 18
+    fontSize: 18,
+    textAlign:'center'
   }
 
   

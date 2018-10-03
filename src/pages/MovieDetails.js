@@ -8,9 +8,22 @@ import movieAPI from '../helper/movieAPI';
 //import moment from 'moment';
 
 export default class MovieDetailsPage extends React.Component {
-    static navigationOptions = {
-        title: ' Go Back '
-      }
+  static navigationOptions = ({navigation}) => {
+    return{
+      title: navigation.getParam('mediaType', 'Listings') ==='film'? 'Movie Details' : 'TV Show Details',
+      headerStyle: {
+          backgroundColor: '#173e69',
+        },
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          color: '#ffffff',
+          fontSize: 25,
+          flex:1,
+  },
+  headerTintColor: '#ffffff',
+    }
+ 
+  }
   
   getSelectedActor = (actorID) => {
         //make a query to get actor details. 
@@ -109,6 +122,7 @@ export default class MovieDetailsPage extends React.Component {
       separator: {
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
         height: StyleSheet.hairlineWidth,
-        marginVertical: 10,
+        marginVertical: 15,
+        borderBottomWidth:2,
       }
 };

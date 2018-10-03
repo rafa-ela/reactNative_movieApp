@@ -7,7 +7,17 @@ import ImagePoster from '../components/ImagePoster'
 export default class ActorDetailsPage extends React.Component {
     
 static navigationOptions = {
-        title: "Actor Details"
+        title: "Actor Details",
+        headerStyle: {
+            backgroundColor: '#173e69',
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            color: '#ffffff',
+            fontSize: 25,
+            flex:1,
+    },
+    headerTintColor: '#ffffff',
       }
   
 actorMovies(actorMovies,name,type){
@@ -87,6 +97,7 @@ const styles = {
         backgroundColor: 'rgba(0, 0, 0, 0.1)',
         height: StyleSheet.hairlineWidth,
         marginVertical: 10,
+        borderBottomWidth:2,
       },
       heading:{
         fontWeight: '500',

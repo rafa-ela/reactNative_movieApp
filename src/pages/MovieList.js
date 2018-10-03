@@ -1,10 +1,26 @@
 import React from 'react';
-import { StyleSheet, FlatList, Text, View,TouchableOpacity  } from 'react-native';
+import { FlatList, StyleSheet, View,TouchableOpacity  } from 'react-native';
 import { List } from "react-native-elements";
 import Movie from '../components/Movie';
 
 export default class MovieList extends React.Component {
 
+  static navigationOptions = ({navigation}) => {
+    return{
+      title: navigation.getParam('title', 'Listings'),
+      headerStyle: {
+          backgroundColor: '#173e69',
+        },
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          color: '#ffffff',
+          fontSize: 25,
+          flex:1,
+  },
+  headerTintColor: '#ffffff'
+    }
+ 
+  }
     clickedOnMovie(id, index, movieList,type){
       if(type === 'film'){
         Promise.all([
@@ -35,12 +51,10 @@ export default class MovieList extends React.Component {
     render() {
       const { navigation } = this.props;
       const movies = navigation.getParam('movies');
-      const headerTitle = navigation.getParam('title');
       const mediaType = navigation.getParam('type');      
       return (
-          <View style={{ flex: 1}}>
-          <Text style={styles.h2text}> {headerTitle} </Text>
-            <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+          <View style={{ flex: 1, backgroundColor: '#CCE5FF'}}>
+            <List containerStyle={styles.containerStyle}>
               <FlatList
               data = {movies}
               renderItem={
@@ -59,18 +73,11 @@ export default class MovieList extends React.Component {
       }
     }
 
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        marginTop: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-      },
-      h2text: {
-        marginTop: 10,
-        fontFamily: 'Helvetica',
-        fontSize: 30,
-        fontWeight: 'bold',
-      },
-    });
+  const styles = StyleSheet.create({
+      containerStyle:{
+        flex: 1,    
+        paddingBottom: 1, 
+        marginBottom: 15, 
+        backgroundColor: '#999fb0',
+      }
+    })

@@ -1,17 +1,25 @@
 import React from 'react';
 import { StyleSheet, FlatList, Text, View,TouchableOpacity  } from 'react-native';
-import { List, ListItem, SearchBar } from "react-native-elements";
+import { List } from "react-native-elements";
 import getMovie from '../helper/movieAPI';
 import Movie from '../components/Movie';
-import RenderSeparator from '../components/RenderSeparator';
 import movieAPI from '../helper/movieAPI';
 
 class HomeScreen extends React.Component {
     
   static navigationOptions = {
-    title: "Home Page"
-  }
-
+    title: 'HOME',
+    headerStyle: {
+      backgroundColor: '#173e69',
+    },
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      color: '#ffffff',
+      fontSize: 25,
+      flex:1,
+        },
+    headerTintColor: '#ffffff',
+  };
   state = {
     movies:[],
     isSuccessful: false 
@@ -22,8 +30,6 @@ componentDidMount(){
  // getMovie().then(movies => this.setState({ movies,isSuccessful:true}))
   //.catch(() => this.setState({ isSuccessful: false }));
 }
-
-
 fetchData = async () => {
   var urlReq = movieAPI.getPopuMovies();
   const response = await fetch(urlReq);
@@ -45,11 +51,12 @@ clickedOnMovie(id,index) {
       })).catch(error => {
         console.log("Getting Blah error",error)});
       }
+
   render() {
     return (
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1, backgroundColor: '#CCE5FF' ,alignItems: 'center'}}>
             <Text style={styles.h2text}> {"Popular Movies"} </Text>
-            <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+            <List containerStyle={styles.containerStyle}>
               <FlatList
               data = {this.state.movies}
               renderItem={
@@ -67,22 +74,19 @@ clickedOnMovie(id,index) {
     );
   }
 }
-
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  containerStyle:{
+    flex: 1,    
+    paddingBottom: 1, 
+    marginBottom: 15, 
+    backgroundColor: '#999fb0'
   },
   h2text: {
-    marginTop: 10,
+    marginTop:15,
     fontFamily: 'Helvetica',
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
+    fontSize: 20,
+    fontWeight: 'bold'
+    },
   separator: {
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
     height: StyleSheet.hairlineWidth,

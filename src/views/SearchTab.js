@@ -8,10 +8,18 @@ import { SearchBar, List, Card }  from 'react-native-elements';
 import ItemList from '../components/ItemList';
 
 export default class SearchTab extends React.Component {
-    static navigationOptions = {
-        title: "Search "
-      }
-    
+  static navigationOptions = {
+    title: 'SEARCH',
+    headerStyle: {
+      backgroundColor: '#173e69',
+    },
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      color: '#ffffff',
+      fontSize: 25,
+      flex:1,
+        },
+  };
     constructor(props){
     super(props);
     this.state = {
@@ -56,7 +64,7 @@ itemClicked(id,type,index){
 
   render() {
     return (
-    <View style={{ flex: 1}}>
+    <View style={{ flex: 1, backgroundColor:'#CCE5FF'  }}>
         <SearchBar
         style = {styles.searchBar}
         platform="android"
@@ -91,7 +99,6 @@ var styles = StyleSheet.create({
     marginTop: 50,
     marginBottom: 25,
     justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
     paddingBottom: 30,
     borderRadius: 2,
    },
