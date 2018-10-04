@@ -35,7 +35,11 @@ const movieAPI = {
     getActorMovieListURL:function(actorID){
         return BASE_URL+'/3/person/'+actorID+'/movie_credits?api_key='+API_KEY+'&language=en-US';
     },
-
+    search:function(queryString){
+        return BASE_URL+"/3/search/multi?api_key="+API_KEY+"&language=en-US&query="+queryString+"&page=1&include_adult=false";
+    },
+    getDetails:function(mediaType,id){
+        return BASE_URL+'/3/'+mediaType+'/' + id + '/credits?api_key='+API_KEY;
+     },
 }
-
 export default movieAPI;

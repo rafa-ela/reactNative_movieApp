@@ -4,7 +4,7 @@ import { View, StyleSheet, ScrollView,TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-elements';
 import ImagePoster from '../components/ImagePoster'
 
-export default class ActorDetailsPage extends React.Component {
+export default class ActorDetailsPage extends  React.PureComponent {
     
 static navigationOptions = {
         title: "Actor Details",
@@ -18,9 +18,10 @@ static navigationOptions = {
             flex:1,
     },
     headerTintColor: '#ffffff',
-      }
+}
   
-actorMovies(actorMovies,name,type){
+actorMovies(actorMovies,type){
+    console.log(type);
     if (type === 'film'){
         this.props.navigation.push('MovieListings', {
             movies: actorMovies.cast,
@@ -62,7 +63,7 @@ render(){
             <Text> {actor.biography} </Text>
         <View style={{padding: 15}} />
         <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity style = {styles.buttonBox}  onPress={() => this.actorMovies(movies,actor.name,"film") } >
+            <TouchableOpacity style = {styles.buttonBox}  onPress={() => this.actorMovies(movies,"film") } >
                     <Text style ={styles.buttonText}> Movies </Text>
             </TouchableOpacity>
             <View style={{padding: 10}} />
@@ -107,6 +108,5 @@ const styles = {
       },
       mainSection: {
         flexDirection: 'row'
-    },
-
+    }
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, FlatList, Text, View,TouchableOpacity  } from 'react-native';
 import { List } from "react-native-elements";
-import getMovie from '../helper/movieAPI';
 import Movie from '../components/Movie';
 import movieAPI from '../helper/movieAPI';
 
@@ -9,17 +8,16 @@ class HomeScreen extends React.Component {
     
   static navigationOptions = {
     title: 'HOME',
-    headerStyle: {
-      backgroundColor: '#173e69',
-    },
+    headerStyle: {backgroundColor: '#173e69',},
     headerTitleStyle: {
       fontWeight: 'bold',
       color: '#ffffff',
       fontSize: 25,
       flex:1,
-        },
+    },
     headerTintColor: '#ffffff',
   };
+  
   state = {
     movies:[],
     isSuccessful: false 
@@ -27,8 +25,6 @@ class HomeScreen extends React.Component {
 
 componentDidMount(){
   this.fetchData();
- // getMovie().then(movies => this.setState({ movies,isSuccessful:true}))
-  //.catch(() => this.setState({ isSuccessful: false }));
 }
 fetchData = async () => {
   var urlReq = movieAPI.getPopuMovies();

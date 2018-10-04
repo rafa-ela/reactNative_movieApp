@@ -1,46 +1,31 @@
-import React from 'react';
-import {View, FlatList,StyleSheet, Text, TouchableOpacity} from 'react-native';
-import { List,Card } from "react-native-elements";
+import React, { PureComponent } from 'react';
+import {View, FlatList, TouchableOpacity} from 'react-native';
+import {Card } from "react-native-elements";
 import Movie from '../components/Movie';
 
-export default class ItemList extends React.Component {
+export default class ItemList extends  PureComponent {
 
-  actionOnRow(item,media_type,index) {
+  pressedSearchResult(item,media_type,index) {
     this.props.itemClickedCallBack(item,media_type,index);
   }       
+  
   render() {
   return (
 
     <FlatList 
         data={this.props.items}
+        initialNumToRender={7}
         renderItem={({item,index}) => (
-          <Card >
-        <TouchableOpacity onPress={ () => this.actionOnRow(item.id,item.media_type,index)}>
-
+        <Card >
+        <TouchableOpacity onPress={ () => this.pressedSearchResult(item.id,item.media_type,index)}>
                  <Movie movie={item}
                         type={item.media_type==='movie'?'film':'tvshows'} 
           />
-           </TouchableOpacity>
-          </Card>
+        </TouchableOpacity>
+        </Card>
        )}
        keyExtractor={(item,index) => index.toString()}
        /> 
   );
   }
 }
-
-const styles = {
-  container: {
-    flex: 1,
-    marginTop: 50,
-    marginBottom: 25,
-    justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
-    paddingTop: 30,
-    borderRadius: 2,
-  },
-  name: {
-    fontFamily: 'Verdana',
-    fontSize: 18
-  }
-};

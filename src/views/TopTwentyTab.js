@@ -28,7 +28,6 @@ export default class TopTwentyTab extends React.Component {
         {category :'Top Rated TV Shows',id:'BestTVShows'},
        ]
       }
-    
   };
 
   pressedTop20Item(id) {
@@ -63,10 +62,10 @@ export default class TopTwentyTab extends React.Component {
       url = movieAPI.getTopBestMovieURL();
       break;
     }
-    this.goToListingsPage(url,type,title);
+    this.pushListingPage(url,type,title);
  }
 
- goToListingsPage(url,mediaType,HeaderTitle) {
+ pushListingPage(url,mediaType,HeaderTitle) {
   Promise.all([
     fetch(url),
   ])
@@ -121,8 +120,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign:'center'
   }
-
-  
 });
 
 

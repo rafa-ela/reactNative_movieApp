@@ -1,30 +1,24 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView,Image } from 'react-native';
-import { Text, Button, Card, Divider } from 'react-native-elements';
+import { View, StyleSheet, ScrollView} from 'react-native';
+import {Text} from 'react-native-elements';
 import Cast from '../components/Cast';
 import ImagePoster from '../components/ImagePoster'
 import movieAPI from '../helper/movieAPI';
-
-//import moment from 'moment';
 
 export default class MovieDetailsPage extends React.Component {
   static navigationOptions = ({navigation}) => {
     return{
       title: navigation.getParam('mediaType', 'Listings') ==='film'? 'Movie Details' : 'TV Show Details',
-      headerStyle: {
-          backgroundColor: '#173e69',
-        },
-        headerTitleStyle: {
+      headerStyle: {backgroundColor: '#173e69'},
+      headerTitleStyle: {
           fontWeight: 'bold',
           color: '#ffffff',
           fontSize: 25,
-          flex:1,
-  },
-  headerTintColor: '#ffffff',
-    }
- 
-  }
-  
+          flex:1
+      },
+     headerTintColor: '#ffffff',
+    }}
+    
   getSelectedActor = (actorID) => {
         //make a query to get actor details. 
         info = movieAPI.getActorInfoURL(actorID);
@@ -48,11 +42,9 @@ export default class MovieDetailsPage extends React.Component {
     const movie = navigation.getParam('movieInfo');
     const type = navigation.getParam('mediaType');
     const {noteStyle} = styles;
-    console.log(movie);
-    //const time = moment(publishedAt || moment.now()).fromNow();        
     return (
-        <ScrollView contentContainerStyle={styles.contentContainer}>
-    <View style={styles.mainSection}>
+       <ScrollView contentContainerStyle={styles.contentContainer}>
+          <View style={styles.mainSection}>
           <ImagePoster path = {movie.poster_path} />
           <View style={styles.rightPane}> 
             <Text style={styles.movieTitle}>Original Title: {type === 'film'? movie.original_title: movie.original_name}</Text>
@@ -73,9 +65,8 @@ export default class MovieDetailsPage extends React.Component {
         <Text>{movie.overview} </Text>
         <View style={styles.separator} />
         <Cast actors={ navigation.getParam('actorList')}
-              selectedActor = {this.getSelectedActor}
-         />
-    </ScrollView>
+              selectedActor = {this.getSelectedActor} />
+     </ScrollView>
     );
   }
 }

@@ -1,10 +1,8 @@
 import React from 'react';
-import { View, Linking, TouchableNativeFeedback } from 'react-native';
+import { View} from 'react-native';
 import { Text, StyleSheet, Card, Divider } from 'react-native-elements';
-//import moment from 'moment';
 
 export default class Movie extends React.Component {
-
   render() {
     const {
       title,
@@ -14,12 +12,10 @@ export default class Movie extends React.Component {
       popularity,
       id
     } = this.props.movie;
-    const { noteStyle, featuredTitleStyle } = styles;
-   // const time = moment(publishedAt || moment.now()).fromNow();
+   const { noteStyle, featuredTitleStyle } = styles;
    var urlToImage = "http://image.tmdb.org/t/p/w500"+ poster_path;
-    const defaultImg =
+   const defaultImg =
       'https://wallpaper.wiki/wp-content/uploads/2017/04/wallpaper.wiki-Images-HD-Diamond-Pattern-PIC-WPB009691.jpg';
-
     return (
         <Card
           featuredTitle={this.props.type === 'film' ? title: this.props.movie.original_name}
