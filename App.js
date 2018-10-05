@@ -2,14 +2,13 @@ import React, {Component} from 'react';
 import { createStackNavigator, createBottomTabNavigator,DrawerNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import HomeScreen from './src/views/HomeTab';
 import MovieDetailsPage from './src/pages/MovieDetails';
 import ActorDetailsPage from './src/pages/ActorDetails';
 import MovieList from './src/pages/MovieList';
 
-import TopTwentyTab from   './src/views/TopTwentyTab';
-import MoreOptionsView from   './src/views/StackedTab';
-import SearchTab from './src/views/SearchTab';
+import TopTwentyTab from   './src/tabs/TopTwentyTab';
+import SearchTab from './src/tabs/SearchTab';
+import HomeScreen from './src/tabs/HomeTab';
 
 const HomeStack = createStackNavigator({
   Home: { screen: HomeScreen },
@@ -23,7 +22,6 @@ const SearchTabStack = createStackNavigator({
   ActorDetails: {screen: ActorDetailsPage},
   MovieListings: {screen: MovieList}
 });
-
 const MoreOptionsStack = createStackNavigator({
   Top20: {screen: TopTwentyTab},
   MovieListings: {screen: MovieList},
@@ -37,8 +35,6 @@ export default createBottomTabNavigator(
     Search: {screen:SearchTabStack},
     More : {screen: MoreOptionsStack}
   },
-
- 
   {
     navigationOptions: ({ navigation }) => ({
       headerTintColor: 'white',
@@ -52,16 +48,10 @@ export default createBottomTabNavigator(
         }
         else if (routeName == 'More')
         {
-       // iconName = `area-chart${focused ? '' : '-outline'}`;
-          iconName = 'bars';
+          iconName = 'trophy';
         }
-        // You can return any component that you like here! We usually use an
-        // icon component from react-native-vector-icons
         return <Icon name={iconName} size={25} color={tintColor} />;
       },
-
-   
-
     }),
     tabBarOptions: {
       showLabel: false, // hide labels
